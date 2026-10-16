@@ -97,3 +97,27 @@ body{color:#17335f}
 .settings-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}
 .settings-actions .primary-button{padding:0 16px;border:1px solid #2457ff}
 @media(max-width:640px){.heading-actions{width:100%}.results-heading{align-items:flex-start;flex-wrap:wrap}.poll-settings{padding:16px}.settings-actions{flex-wrap:wrap}.settings-actions .primary-button{flex:1}}
+
+/* Make choosing availability feel like a clear, guided step */
+.calendar-instruction{display:flex;align-items:center;gap:11px;margin:0 0 15px;padding:12px 13px;border:1px solid #2457ff;border-radius:10px;background:#fff7c9;color:#17335f}
+.calendar-instruction.ready{background:#ffe5ef;border-color:#e83e83}
+.instruction-icon{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#ffdf45;color:#17335f;font-size:12px;font-weight:800}
+.calendar-instruction.ready .instruction-icon{background:#e83e83;color:white}
+.calendar-instruction>span:nth-child(2){display:grid;gap:3px;flex:1}
+.calendar-instruction strong{font-size:12px;font-weight:800}
+.calendar-instruction small{font-size:10px;line-height:1.5;color:#526783}
+.instruction-arrow{font-size:19px;font-weight:800;color:#2457ff}
+.calendar-selecting .day-cell.in-range{cursor:pointer;border-color:#f2d45e}
+.calendar-selecting .day-cell.in-range:hover{background:#fff0a3;border-color:#e83e83;transform:translateY(-1px)}
+.day-cell.everyone{background:#ffe5ef;color:#8e2450;font-weight:800}
+.day-cell.majority{background:#fff0a3;color:#6c5100}
+.day-cell.none-free{background:#f7f7f4;color:#8b9188}
+.day-cell.active-day{outline:2px solid #e83e83;outline-offset:1px}
+.day-cell.picked{box-shadow:inset 0 0 0 2px #e83e83;background:#ffdf45;color:#17335f;font-weight:800}
+.day-cell.picked .day-count{color:#17335f}
+.everyone-dot{background:#e83e83}
+.majority-dot{background:#ffdf45}
+.selected-summary{display:grid;gap:5px}
+.selected-summary>span{font-weight:800;color:#17335f}
+.selected-summary small{font-size:10px;line-height:1.5;color:#68758a}
+@media(max-width:480px){.calendar-instruction{padding:10px;gap:8px}.calendar-instruction strong{font-size:11px}.calendar-instruction small{font-size:9px}}
