@@ -179,3 +179,18 @@ body{color:#17335f}
   .date-inputs{grid-template-columns:minmax(0,1fr);gap:12px}
   .date-inputs input[type="date"]{font-size:16px!important;padding:0 10px}
 }
+
+/* Final mobile fixes: keep date controls within the card and center the save label */
+.date-inputs{width:100%;min-width:0}
+.date-inputs>label{width:100%;min-width:0}
+.date-inputs input[type="date"]{width:100%;min-width:0;max-width:100%;margin:0}
+@media(max-width:520px){
+  .create-card,.poll-settings{min-width:0}
+  .date-inputs{grid-template-columns:minmax(0,1fr);width:100%;gap:12px}
+  .date-inputs>label{display:grid;grid-template-columns:minmax(0,1fr);overflow:visible}
+  .date-inputs input[type="date"]{box-sizing:border-box;width:100%;min-width:0;max-width:100%;padding:0 4px;font-size:14px!important}
+}
+.response-form .primary-button{position:relative;justify-content:center;text-align:center}
+.response-form .primary-button svg:first-child{position:absolute;left:14px;flex-shrink:0}
+.response-form .primary-button svg:last-child{margin-left:0;margin-right:0}
+
