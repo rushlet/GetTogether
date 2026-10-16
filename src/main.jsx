@@ -7,7 +7,7 @@ const fmt = (iso, options = { month: 'short', day: 'numeric' }) => new Date(iso 
 const longFmt = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
 const dateRange = (start, end) => { const a = new Date(start + 'T12:00:00'), b = new Date(end + 'T12:00:00'), out = []; for (const d = new Date(a); d <= b; d.setDate(d.getDate() + 1)) out.push(d.toISOString().slice(0,10)); return out; };
 const isoToday = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0,10); };
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\\/$/, '');
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/[/]$/, '');
 async function api(url, options) { const res = await fetch(`${API_BASE}${url}`, { headers: { 'Content-Type': 'application/json' }, ...options }); const text = await res.text(); let body; try { body = text ? JSON.parse(text) : {}; } catch { throw new Error(`The API returned a non-JSON response (${res.status}). Check the API URL and backend deployment.`); } if (!res.ok) throw new Error(body.error || `Request failed (${res.status})`); return body; }
 function App() {
   const [session, setSession] = useState(null);
