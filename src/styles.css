@@ -207,4 +207,9 @@ body{color:#17335f}
   text-align:left;
   margin:0;
 }
+/* Align the Create a poll heading horizontally with its calendar icon */
+.create-card-heading{display:flex;align-items:center;gap:13px;margin-bottom:22px}
+.create-card-heading .card-icon{flex:0 0 43px;margin:0}
+.create-card-heading h2{margin:0;line-height:1.2}
+@media(max-width:520px){.create-card-heading{gap:12px;margin-bottom:20px}}
 
