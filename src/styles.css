@@ -44,3 +44,27 @@ body{background:#f5f6fb;color:var(--ink)}
 .bottom-cta-icon{background:#171b2b;color:#ffdf3d}
 .bottom-cta button{background:#2457ff;border:2px solid #171b2b;border-radius:7px}
 @media(max-width:520px){.landing-simple{padding-top:32px}.create-card{padding:24px 18px}.weekday-options{gap:4px}.weekday-option{font-size:10px}}
+
+/* Blue is an accent for borders and typography; keep actions pink/yellow */
+:root{--ink:#17335f;--muted:#526783;--line:#b8c9e5}
+body{color:#17335f}
+.topbar{border-bottom-color:#17335f}
+.brand{color:#17335f}
+.brand-mark{background:#e83e83}
+.create-card,.panel{border-color:#17335f}
+.create-card h2,.panel h2,.results-heading h1,.form-title h3{color:#17335f}
+.create-form label,.weekday-picker>span{color:#28476f}
+.create-form input{border-color:#9eb4d5}
+.create-form input:focus,.response-form input:focus{border-color:#17335f;box-shadow:0 0 0 3px #e1eaf8}
+.primary-button{background:#e83e83;color:#fff;border-color:#17335f}
+.primary-button:hover{background:#c92769}
+.weekday-option{border-color:#9eb4d5;color:#17335f}
+.weekday-option.selected{background:#e83e83;color:#fff;border-color:#17335f}
+.weekday-presets button{border-color:#9eb4d5;color:#17335f}
+.weekday-presets button:hover{background:#ffdf45;border-color:#17335f}
+.section-kicker,.edit-poll-button{color:#17335f}
+.invite-button{background:#ffe5ef;border-color:#17335f;color:#17335f}
+.bottom-cta{border-color:#17335f}
+.bottom-cta button{background:#e83e83;border-color:#17335f}
+.poll-settings{border-color:#17335f}
+.month-controls button{color:#17335f;border-color:#9eb4d5}
