@@ -83,6 +83,37 @@ app.post('/api/sessions', async (req, res, next) => {
     res.status(201).json({ session: asSession(result.rows[0]) });
   } catch (e) { next(e); }
 });
+app.put('/api/sessions/:id/settings', async (req, res, next) => {
+  const client = await pool.connect();
+  try {
+    const title = cleanText(req.body?.title, 90);
+    const startDate = cleanText(req.body?.startDate, 10);
+    const endDate = cleanText(req.body?.endDate, 10);
+    const weekdays = Array.isArray(req.body?.weekdays) ? [...new Set(req.body.weekdays.map(Number).filter(d => Number.isInteger(d) && d >= 0 && d <= 6))].sort((a,b)=>a-b) : [];
+    if (!title) return res.status(400).json({ error: 'Add a title for your get-together.' });
+    if (!weekdays.length) return res.status(400).json({ error: 'Choose at least one day of the week.' });
+    if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(startDate) || !/^\\d{4}-\\d{2}-\\d{2}$/.test(endDate) || startDate > endDate)
+      return res.status(400).json({ error: 'Choose a valid date range.' });
+    const span = (Date.parse(endDate + 'T00:00:00Z') - Date.parse(startDate + 'T00:00:00Z')) / 86400000;
+    if (!Number.isFinite(span) || span > 120) return res.status(400).json({ error: 'Choose a date range of 120 days or less.' });
+    await client.query('BEGIN');
+    const found = await client.query('SELECT * FROM sessions WHERE id = $1 FOR UPDATE', [req.params.id]);
+    if (!found.rowCount) { await client.query('ROLLBACK'); return res.status(404).json({ error: 'Poll not found.' }); }
+    const session = asSession(found.rows[0]);
+    const removed = session.responses.reduce((n, response) => n + response.dates.filter(d => d < startDate || d > endDate || !weekdays.includes(new Date(d + 'T12:00:00').getDay())).length, 0);
+    if (removed > 0 && req.body?.confirmRemoved !== true) {
+      await client.query('ROLLBACK');
+      return res.status(409).json({ error: 'These changes remove ' + removed + ' existing date selection' + (removed === 1 ? '' : 's') + '. Save again to confirm.' , removedSelections: removed });
+    }
+    const responses = session.responses.map(response => ({ ...response, dates: response.dates.filter(d => d >= startDate && d <= endDate && weekdays.includes(new Date(d + 'T12:00:00').getDay())) }));
+    const result = await client.query('UPDATE sessions SET title=$2, start_date=$3, end_date=$4, weekdays=$5, responses=$6::jsonb WHERE id=$1 RETURNING *', [req.params.id, title, startDate, endDate, weekdays, JSON.stringify(responses)]);
+    await client.query('COMMIT');
+    res.json({ session: asSession(result.rows[0]), removedSelections: removed });
+  } catch (e) {
+    await client.query('ROLLBACK').catch(() => {});
+    next(e);
+  } finally { client.release(); }
+});
 app.put('/api/sessions/:id/responses', async (req, res, next) => {
   const client = await pool.connect();
   try {
