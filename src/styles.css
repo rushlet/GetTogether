@@ -68,3 +68,12 @@ body{color:#17335f}
 .bottom-cta button{background:#e83e83;border-color:#17335f}
 .poll-settings{border-color:#17335f}
 .month-controls button{color:#17335f;border-color:#9eb4d5}
+
+/* Restore the vivid electric blue for borders while retaining pink/yellow actions */
+:root{--border-blue:#2457ff}
+.topbar{border-bottom-color:#2457ff}
+.create-card,.panel,.poll-settings{border-color:#2457ff}
+.create-form input,.weekday-option,.weekday-presets button,.month-controls button{border-color:#2457ff}
+.create-form input:focus,.response-form input:focus{border-color:#2457ff;box-shadow:0 0 0 3px #e0e7ff}
+.primary-button,.weekday-option.selected,.bottom-cta button{border-color:#2457ff}
+.invite-button{border-color:#2457ff}
