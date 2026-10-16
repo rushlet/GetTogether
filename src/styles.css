@@ -140,3 +140,9 @@ body{color:#17335f}
 .day-cell.picked{background:#ffe5ef!important;color:#8e2450!important;box-shadow:inset 0 0 0 1px #e83e83!important}
 .day-cell.picked .day-count{color:#8e2450!important}
 @media(max-width:640px){.title-with-edit{gap:8px}.title-edit-button{padding:7px 9px}}
+
+/* Make the primary response action unmistakable */
+.results-heading>.outline-button{padding:14px 20px;min-height:48px;font-size:13px;font-weight:800;border:2px solid #2457ff;background:#ffdf45;color:#17335f;border-radius:12px;box-shadow:0 3px 0 rgba(23,51,95,.12)}
+.results-heading>.outline-button svg{width:19px;height:19px}
+.results-heading>.outline-button:hover{background:#ffe98a;transform:translateY(-1px)}
+@media(max-width:640px){.results-heading>.outline-button{width:100%;min-height:52px;font-size:14px}}
