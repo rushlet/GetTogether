@@ -80,3 +80,7 @@ body{color:#17335f}
 
 /* Yellow calendar mark to match the main create-poll icon */
 .brand-mark,.card-icon{background:#ffdf45;color:#17335f}
+
+/* Disabled calendar dates are intentionally unavailable, not busy */
+.day-cell:disabled{cursor:default;opacity:1}
+.month-controls button:disabled{cursor:default;opacity:.4}
