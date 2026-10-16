@@ -92,7 +92,7 @@ app.put('/api/sessions/:id/settings', async (req, res, next) => {
     const weekdays = Array.isArray(req.body?.weekdays) ? [...new Set(req.body.weekdays.map(Number).filter(d => Number.isInteger(d) && d >= 0 && d <= 6))].sort((a,b)=>a-b) : [];
     if (!title) return res.status(400).json({ error: 'Add a title for your get-together.' });
     if (!weekdays.length) return res.status(400).json({ error: 'Choose at least one day of the week.' });
-    if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(startDate) || !/^\\d{4}-\\d{2}-\\d{2}$/.test(endDate) || startDate > endDate)
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{4}-\d{2}-\d{2}$/.test(endDate) || startDate > endDate)
       return res.status(400).json({ error: 'Choose a valid date range.' });
     const span = (Date.parse(endDate + 'T00:00:00Z') - Date.parse(startDate + 'T00:00:00Z')) / 86400000;
     if (!Number.isFinite(span) || span > 120) return res.status(400).json({ error: 'Choose a date range of 120 days or less.' });
