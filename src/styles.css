@@ -233,4 +233,11 @@ body{color:#17335f}
   min-height:1.2em;
   margin:auto;
 }
+/* Give the Best dates shortlist rows breathing room inside the shaded panel */
+.best-panel .best-list{margin-left:4px;margin-right:4px}
+.best-panel .best-date{padding-left:8px;padding-right:8px;border-radius:9px}
+@media(max-width:520px){
+  .best-panel .best-list{margin-left:2px;margin-right:2px}
+  .best-panel .best-date{padding-left:7px;padding-right:7px}
+}
 
