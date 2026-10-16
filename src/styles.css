@@ -240,4 +240,9 @@ body{color:#17335f}
   .best-panel .best-list{margin-left:2px;margin-right:2px}
   .best-panel .best-date{padding-left:7px;padding-right:7px}
 }
+/* The all-dates view scrolls inside the shortlist panel */
+.best-list-scrollable{max-height:360px;overflow-y:auto;overscroll-behavior:contain;padding-right:3px}
+.best-list-scrollable .best-date{flex-shrink:0}
+.best-list-scrollable::-webkit-scrollbar{width:5px}
+.best-list-scrollable::-webkit-scrollbar-thumb{background:#dce4d7;border-radius:8px}
 
