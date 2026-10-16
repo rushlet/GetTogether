@@ -121,3 +121,14 @@ body{color:#17335f}
 .selected-summary>span{font-weight:800;color:#17335f}
 .selected-summary small{font-size:10px;line-height:1.5;color:#68758a}
 @media(max-width:480px){.calendar-instruction{padding:10px;gap:8px}.calendar-instruction strong{font-size:11px}.calendar-instruction small{font-size:9px}}
+
+/* Availability legend palette: green = everyone, yellow = majority, pale blue = no responses */
+.day-cell.everyone{background:#bcebd0;color:#155c39;font-weight:800}
+.day-cell.majority{background:#ffdf45;color:#6c5100;font-weight:800}
+.day-cell.none-free{background:rgba(36,87,255,.07);color:#7185b2}
+.day-cell.everyone .day-count{color:#155c39}
+.day-cell.majority .day-count{color:#6c5100}
+.day-cell.none-free .day-count{color:#7185b2}
+.everyone-dot{background:#22a565}
+.majority-dot{background:#ffdf45}
+.none-dot{background:rgba(36,87,255,.22)}
