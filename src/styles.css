@@ -162,3 +162,20 @@ body{color:#17335f}
   .date-inputs input{padding:0 7px;font-size:16px!important}
   .quick-name-field{padding:11px}
 }
+
+
+/* Refine title hierarchy and prevent native date controls colliding on phones */
+.title-with-edit{gap:8px}
+.title-edit-button{padding:5px 8px;font-size:9px;gap:5px;border-radius:7px}
+.title-edit-button svg{width:13px;height:13px}
+.quick-name-field{margin:0 0 18px}
+.date-inputs{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.date-inputs>label{min-width:0;overflow:hidden}
+.date-inputs input[type="date"]{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;padding:0 5px;font-size:14px}
+@media(max-width:520px){
+  .title-with-edit{gap:6px}
+  .title-edit-button{padding:4px 7px;font-size:9px}
+  .title-edit-button svg{width:12px;height:12px}
+  .date-inputs{grid-template-columns:minmax(0,1fr);gap:12px}
+  .date-inputs input[type="date"]{font-size:16px!important;padding:0 10px}
+}
