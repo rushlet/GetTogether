@@ -77,3 +77,6 @@ body{color:#17335f}
 .create-form input:focus,.response-form input:focus{border-color:#2457ff;box-shadow:0 0 0 3px #e0e7ff}
 .primary-button,.weekday-option.selected,.bottom-cta button{border-color:#2457ff}
 .invite-button{border-color:#2457ff}
+
+/* Yellow calendar mark to match the main create-poll icon */
+.brand-mark,.card-icon{background:#ffdf45;color:#17335f}
