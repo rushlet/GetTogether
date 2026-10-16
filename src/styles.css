@@ -84,3 +84,16 @@ body{color:#17335f}
 /* Disabled calendar dates are intentionally unavailable, not busy */
 .day-cell:disabled{cursor:default;opacity:1}
 .month-controls button:disabled{cursor:default;opacity:.4}
+
+/* Poll settings editor */
+.heading-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.edit-poll-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid #2457ff;border-radius:9px;background:#fff;color:#17335f;padding:10px 13px;font-size:11px;font-weight:700}
+.edit-poll-button:hover{background:#ffdf45}
+.poll-settings{margin:0 0 22px;border-color:#2457ff;padding:22px}
+.poll-settings .form-title{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.poll-settings .form-title h3{margin:0;color:#17335f;font:750 18px Manrope,sans-serif}
+.poll-settings .form-title p{margin:5px 0 0;color:#526783;font-size:11px}
+.settings-warning{margin:0;padding:11px 13px;border:1px solid #e8a23a;border-radius:8px;background:#fff5dc;color:#684600;font-size:12px;line-height:1.5}
+.settings-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.settings-actions .primary-button{padding:0 16px;border:1px solid #2457ff}
+@media(max-width:640px){.heading-actions{width:100%}.results-heading{align-items:flex-start;flex-wrap:wrap}.poll-settings{padding:16px}.settings-actions{flex-wrap:wrap}.settings-actions .primary-button{flex:1}}
