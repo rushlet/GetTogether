@@ -37,6 +37,12 @@ const weekdayValue = i => (i + 1) % 7;
   const dates = useMemo(() => session ? dateRange(session.startDate, session.endDate).filter(d => (session.weekdays || [0,1,2,3,4,5,6]).includes(new Date(d + 'T12:00:00').getDay())) : [], [session]);
   const shareUrl = session ? window.location.href : '';
   useEffect(() => {
+    const basePath = import.meta.env.BASE_URL;
+    const path = window.location.pathname;
+    if (basePath !== '/' && path !== basePath && !path.startsWith(basePath)) {
+      window.location.replace(basePath + window.location.search + window.location.hash);
+      return;
+    }
     const id = new URLSearchParams(window.location.search).get('s');
     if (id) { setLoading(true); api('/api/sessions/' + encodeURIComponent(id)).then(({session:s}) => { setSession(s); setActiveDate(s.startDate); }).catch(e => setError(e.message)).finally(() => setLoading(false)); }
   }, []);
