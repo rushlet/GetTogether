@@ -35,10 +35,12 @@ async function ensureSchema() {
       title varchar(90) NOT NULL,
       start_date date NOT NULL,
       end_date date NOT NULL,
+      weekdays integer[] NOT NULL DEFAULT ARRAY[0,1,2,3,4,5,6],
       created_at timestamptz NOT NULL DEFAULT now(),
       responses jsonb NOT NULL DEFAULT '[]'::jsonb
     )
   `);
+  await pool.query('ALTER TABLE sessions ADD COLUMN IF NOT EXISTS weekdays integer[] NOT NULL DEFAULT ARRAY[0,1,2,3,4,5,6]');
 }
 const cleanText = (value, max) => String(value || '').trim().slice(0, max);
 const asSession = row => ({
@@ -46,6 +48,7 @@ const asSession = row => ({
   title: row.title,
   startDate: typeof row.start_date === 'string' ? row.start_date : row.start_date.toISOString().slice(0,10),
   endDate: typeof row.end_date === 'string' ? row.end_date : row.end_date.toISOString().slice(0,10),
+  weekdays: row.weekdays || [0,1,2,3,4,5,6],
   createdAt: row.created_at instanceof Date ? row.created_at.toISOString() : row.created_at,
   responses: row.responses || []
 });
@@ -65,6 +68,8 @@ app.post('/api/sessions', async (req, res, next) => {
     const title = cleanText(req.body?.title, 90);
     const startDate = cleanText(req.body?.startDate, 10);
     const endDate = cleanText(req.body?.endDate, 10);
+    const weekdays = Array.isArray(req.body?.weekdays) ? [...new Set(req.body.weekdays.map(Number).filter(d => Number.isInteger(d) && d >= 0 && d <= 6))].sort((a,b)=>a-b) : [0,1,2,3,4,5,6];
+    if (!weekdays.length) return res.status(400).json({ error: 'Choose at least one day of the week.' });
     if (!title) return res.status(400).json({ error: 'Add a title for your get-together.' });
     if (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{4}-\d{2}-\d{2}$/.test(endDate) || startDate > endDate)
       return res.status(400).json({ error: 'Choose a valid date range.' });
@@ -72,8 +77,8 @@ app.post('/api/sessions', async (req, res, next) => {
     if (!Number.isFinite(span) || span > 120) return res.status(400).json({ error: 'Choose a date range of 120 days or less.' });
     const id = crypto.randomBytes(9).toString('base64url');
     const result = await pool.query(
-      'INSERT INTO sessions (id, title, start_date, end_date) VALUES ($1, $2, $3, $4) RETURNING *',
-      [id, title, startDate, endDate]
+      'INSERT INTO sessions (id, title, start_date, end_date, weekdays) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [id, title, startDate, endDate, weekdays]
     );
     res.status(201).json({ session: asSession(result.rows[0]) });
   } catch (e) { next(e); }
@@ -89,7 +94,7 @@ app.put('/api/sessions/:id/responses', async (req, res, next) => {
     const found = await client.query('SELECT * FROM sessions WHERE id = $1 FOR UPDATE', [req.params.id]);
     if (!found.rowCount) { await client.query('ROLLBACK'); return res.status(404).json({ error: 'Session not found' }); }
     const session = asSession(found.rows[0]);
-    if (dates.some(d => d < session.startDate || d > session.endDate)) {
+    if (dates.some(d => d < session.startDate || d > session.endDate || !(session.weekdays || [0,1,2,3,4,5,6]).includes(new Date(d + 'T12:00:00').getDay()))) {
       await client.query('ROLLBACK');
       return res.status(400).json({ error: 'A selected date is outside this poll.' });
     }
