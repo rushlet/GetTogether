@@ -66,7 +66,7 @@ app.post('/api/sessions', async (req, res, next) => {
     const startDate = cleanText(req.body?.startDate, 10);
     const endDate = cleanText(req.body?.endDate, 10);
     if (!title) return res.status(400).json({ error: 'Add a title for your get-together.' });
-    if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(startDate) || !/^\\d{4}-\\d{2}-\\d{2}$/.test(endDate) || startDate > endDate)
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{4}-\d{2}-\d{2}$/.test(endDate) || startDate > endDate)
       return res.status(400).json({ error: 'Choose a valid date range.' });
     const span = (Date.parse(endDate + 'T00:00:00Z') - Date.parse(startDate + 'T00:00:00Z')) / 86400000;
     if (!Number.isFinite(span) || span > 120) return res.status(400).json({ error: 'Choose a date range of 120 days or less.' });
@@ -84,7 +84,7 @@ app.put('/api/sessions/:id/responses', async (req, res, next) => {
     const name = cleanText(req.body?.name, 48);
     const dates = Array.isArray(req.body?.dates) ? [...new Set(req.body.dates.map(d => cleanText(d, 10)))] : [];
     if (!name) return res.status(400).json({ error: 'Enter your name so the group knows who responded.' });
-    if (dates.some(d => !/^\\d{4}-\\d{2}-\\d{2}$/.test(d))) return res.status(400).json({ error: 'One or more dates are invalid.' });
+    if (dates.some(d => !/^\d{4}-\d{2}-\d{2}$/.test(d))) return res.status(400).json({ error: 'One or more dates are invalid.' });
     await client.query('BEGIN');
     const found = await client.query('SELECT * FROM sessions WHERE id = $1 FOR UPDATE', [req.params.id]);
     if (!found.rowCount) { await client.query('ROLLBACK'); return res.status(404).json({ error: 'Session not found' }); }
