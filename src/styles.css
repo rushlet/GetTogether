@@ -193,4 +193,18 @@ body{color:#17335f}
 .response-form .primary-button{position:relative;justify-content:center;text-align:center}
 .response-form .primary-button svg:first-child{position:absolute;left:14px;flex-shrink:0}
 .response-form .primary-button svg:last-child{margin-left:0;margin-right:0}
+/* Vertically center the native date text in From/Until inputs */
+.date-inputs input[type="date"]{
+  height:46px;
+  line-height:normal;
+  padding-top:0;
+  padding-bottom:0;
+  align-self:center;
+}
+.date-inputs>label{align-content:start}
+.date-inputs input[type="date"]::-webkit-date-and-time-value{
+  min-height:1.2em;
+  text-align:left;
+  margin:0;
+}
 
