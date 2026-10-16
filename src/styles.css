@@ -146,3 +146,19 @@ body{color:#17335f}
 .results-heading>.outline-button svg{width:19px;height:19px}
 .results-heading>.outline-button:hover{background:#ffe98a;transform:translateY(-1px)}
 @media(max-width:640px){.results-heading>.outline-button{width:100%;min-height:52px;font-size:14px}}
+
+
+/* Mobile form usability: keep fields inside their columns and prevent iOS focus zoom */
+.date-inputs{grid-template-columns:repeat(2,minmax(0,1fr))}
+.date-inputs>label{min-width:0}
+.date-inputs input{width:100%;min-width:0;max-width:100%}
+.quick-name-field{margin:0 0 16px;padding:13px;border:1px solid #2457ff;border-radius:10px;background:#fff}
+.quick-name-field label{display:grid;gap:8px;color:#17335f;font-size:10px;font-weight:800;letter-spacing:.7px}
+.quick-name-field input{display:block;width:100%;min-width:0;height:46px;padding:0 12px;border:1.5px solid #2457ff;border-radius:8px;background:#fff;color:#17335f;font-size:16px;letter-spacing:0}
+.quick-name-field input:focus{outline:none;border-color:#e83e83;box-shadow:0 0 0 3px #ffe5ef}
+@media(max-width:640px){
+  input,select,textarea{font-size:16px!important}
+  .date-inputs{gap:8px}
+  .date-inputs input{padding:0 7px;font-size:16px!important}
+  .quick-name-field{padding:11px}
+}
